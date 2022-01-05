@@ -96,8 +96,11 @@
                                                                     <select class="form-control select2 dosis" name="dosis[]">
                                                                         <option value="">Pilih</option>
                                                                         <option value="Astrazeneca">Astrazeneca</option>
-                                                                        <option value="Sinovac">Sinovac</option>
+                                                                        <option value="Janssen">Janssen</option>
                                                                         <option value="Moderna">Moderna</option>
+                                                                        <option value="Pfizer">Pfizer</option>
+                                                                        <option value="Sinovac">Sinovac</option>
+                                                                        <option value="Sinopharm">Sinopharm</option>
                                                                     </select>
                                                                 </td>
                                                                 <td>

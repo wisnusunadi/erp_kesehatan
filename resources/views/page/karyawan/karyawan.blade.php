@@ -169,11 +169,18 @@
   $(function() {
     var tabel = $('#tabel').DataTable({
       processing: true,
-      serverSide: false,
+      serverSide: true,
       language: {
         processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
       },
-      ajax: '/daftar_karyawan/data',
+      ajax: {
+        'url': '/daftar_karyawan/data',
+        'type': 'POST',
+        'datatype': 'JSON',
+        'headers': {
+          'X-CSRF-TOKEN': '{{csrf_token()}}'
+        }
+      },
       columns: [{
           data: 'DT_RowIndex',
           orderable: false,

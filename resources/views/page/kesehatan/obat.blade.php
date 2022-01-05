@@ -63,21 +63,23 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
-            <table class="table table-hover styled-table table-striped" width="100%" id="tabel_detail">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Tgl</th>
-                  <th>Divisi</th>
-                  <th>Nama</th>
-                  <th>Analisa</th>
-                  <th>Diagnosa</th>
-                  <th>Jumlah</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
+            <div class='table-responsive'>
+              <table class="table table-hover styled-table table-striped" width="100%" id="tabel_detail">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Tgl</th>
+                    <th>Divisi</th>
+                    <th>Nama</th>
+                    <th>Analisa</th>
+                    <th>Diagnosa</th>
+                    <th>Jumlah</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </form>
@@ -277,11 +279,17 @@
 
     var tabel = $('#tabel').DataTable({
       processing: true,
-      serverSide: false,
+      serverSide: true,
       language: {
         processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
       },
-      ajax: '/obat/data',
+      ajax: {
+        'url': '/obat/data',
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{csrf_token()}}'
+        }
+      },
       columns: [{
           data: 'DT_RowIndex',
           orderable: false,
@@ -320,7 +328,7 @@
             searchable: false
           },
           {
-            data: 'DT_RowIndex'
+            data: 'tgl'
           },
           {
             data: 'div'

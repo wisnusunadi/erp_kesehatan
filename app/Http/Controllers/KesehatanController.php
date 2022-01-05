@@ -63,8 +63,8 @@ class KesehatanController extends Controller
             ->addColumn('x', function ($data) {
                 return $data->karyawan->divisi->nama;
             })
-            ->addColumn('berat_kg', function () {
-                return '<br><div class="inline-flex"><button type="button" id="berat"  class="btn btn-block btn-primary karyawan-img-small" style="border-radius:50%;" ><i class="fa fa-eye" aria-hidden="true"></i></button></div>';
+            ->addColumn('berat_kg', function ($data) {
+                return $data->Karyawan->berat_karyawan->last()->berat . ' Kg <br><div class="inline-flex"><button type="button" id="berat"  class="btn btn-block btn-primary karyawan-img-small" style="border-radius:50%;" ><i class="fa fa-eye" aria-hidden="true"></i></button></div>';
             })
             ->addColumn('tinggi_cm', function ($data) {
                 return $data->tinggi . ' Cm';
@@ -1127,7 +1127,6 @@ class KesehatanController extends Controller
     public function karyawan_sakit_tambah()
     {
         $karyawan = Karyawan::orderBy('nama', 'ASC')
-            ->has('kesehatan_awal')
             ->get();
         $obat = Obat::where('stok', '!=', 0)->get();
         $pengecek = Karyawan::where('divisi_id', '28')
@@ -1264,7 +1263,6 @@ class KesehatanController extends Controller
     {
         $obat = Obat::where('stok', '!=', 0)->get();
         $karyawan = Karyawan::orderBy('nama', 'ASC')
-            ->has('kesehatan_awal')
             ->get();
         $pengecek = Karyawan::where('divisi_id', '28')
             ->get();
@@ -1334,6 +1332,9 @@ class KesehatanController extends Controller
         $data = detail_obat::where('obat_id', $id);
         return datatables::of($data)
             ->addIndexColumn()
+            ->addColumn('tgl', function ($data) {
+                return $data->karyawan_sakit->tgl_cek;
+            })
             ->addColumn('div', function ($data) {
                 return $data->karyawan_sakit->karyawan->divisi->nama;
             })
@@ -1674,12 +1675,23 @@ class KesehatanController extends Controller
     }
     public function obat_detail_data_karyawan($karyawan_id)
     {
-        $data = karyawan_sakit::with('obat')
-            ->whereHas('obat')
-            ->where('tindakan', 'Pengobatan')
-            ->where('karyawan_id', $karyawan_id);
+        $data = detail_obat::whereHas('karyawan_sakit', function ($q) use ($karyawan_id) {
+            $q->where('karyawan_id', $karyawan_id);
+        })->get();
         return datatables::of($data)
             ->addIndexColumn()
+            ->addColumn('tgl_cek', function ($data) {
+                return $data->karyawan_sakit->tgl_cek;
+            })
+            ->addColumn('diag', function ($data) {
+                return $data->karyawan_sakit->diagnosa;
+            })
+            ->addColumn('nama_obat', function ($data) {
+                return $data->obat->nama;
+            })
+            ->addColumn('jumlah_obat', function ($data) {
+                return $data->jumlah . ' pcs';
+            })
             ->make(true);
     }
     public function laporan_harian()

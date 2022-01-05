@@ -306,11 +306,17 @@
       $(function() {
         var berat_tabel = $('#berat_tabel').DataTable({
           processing: true,
-          serverSide: false,
+          serverSide: true,
           language: {
             processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
           },
-          ajax: '/kesehatan_bulanan_berat/data',
+          ajax: {
+            'url': '/kesehatan_bulanan_berat/data',
+            'type': 'POST',
+            'headers': {
+              'X-CSRF-TOKEN': '{{csrf_token()}}'
+            }
+          },
           columns: [{
               data: 'DT_RowIndex',
               orderable: false,
@@ -320,7 +326,8 @@
               data: 'tgl_cek'
             },
             {
-              data: 'x'
+              data: 'x',
+              searchable: true
             },
             {
               data: 'y'
@@ -395,11 +402,17 @@
       $(function() {
         var gcu_tabel = $('#gcu_tabel').DataTable({
           processing: true,
-          serverSide: false,
+          serverSide: true,
           language: {
             processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
           },
-          ajax: '/kesehatan_bulanan_gcu/data',
+          ajax: {
+            url: '/kesehatan_bulanan_gcu/data',
+            type: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': '{{csrf_token()}}'
+            }
+          },
           columns: [{
               data: 'DT_RowIndex',
               orderable: false,
@@ -494,6 +507,7 @@
       var gcu = $('#gcu_tabel').DataTable();
       gcu.destroy();
       $("#detail_gagal").show();
+
     }
   });
 </script>

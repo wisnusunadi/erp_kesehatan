@@ -133,7 +133,13 @@
       language: {
         processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
       },
-      ajax: '/kesehatan_tahunan/data',
+      ajax: {
+        'url': '/kesehatan_tahunan/data',
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{csrf_token()}}'
+        }
+      },
       columns: [{
           data: 'DT_RowIndex',
           orderable: false,

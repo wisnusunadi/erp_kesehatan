@@ -178,8 +178,12 @@
                                       <select class="form-control select2 dosis" name="dosis[]">
                                         <option value="">Pilih</option>
                                         <option value="Astrazeneca">Astrazeneca</option>
-                                        <option value="Sinovac">Sinovac</option>
+                                        <option value="Janssen">Janssen</option>
                                         <option value="Moderna">Moderna</option>
+                                        <option value="Pfizer">Pfizer</option>
+                                        <option value="Sinovac">Sinovac</option>
+                                        <option value="Sinopharm">Sinopharm</option>
+
                                       </select>
                                     </td>
                                     <td>
@@ -354,11 +358,17 @@
   $(function() {
     var tabel = $('#tabel').DataTable({
       processing: true,
-      serverSide: false,
+      serverSide: true,
       language: {
         processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
       },
-      ajax: '/kesehatan/data',
+      ajax: {
+        'url': '/kesehatan/data',
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{csrf_token()}}'
+        }
+      },
       columns: [{
           data: 'DT_RowIndex',
           orderable: false,
@@ -399,11 +409,18 @@
       var y = $('#tabel_detail').DataTable({
         processing: true,
         destroy: true,
-        serverSide: false,
+        serverSide: true,
         language: {
           processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
         },
-        ajax: '/kesehatan/vaksin/' + rows[0]['karyawan_id'],
+        ajax: {
+          'type': 'POST',
+          'headers': {
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
+          },
+          'url': '/kesehatan/vaksin/' + rows[0]['karyawan_id'],
+        },
+
         columns: [{
             data: 'DT_RowIndex',
             orderable: false,
@@ -427,14 +444,21 @@
       $('.data_detail_head').html(
         rows[0]['karyawan']['nama']
       );
+      var x = rows[0]['karyawan_id'];
       var y = $('#tabel_berat').DataTable({
         processing: true,
         destroy: true,
-        serverSide: false,
+        serverSide: true,
         language: {
           processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
         },
-        ajax: '/kesehatan_bulanan_berat/detail/' + rows[0]['karyawan_id'],
+        ajax: {
+          'type': 'POST',
+          'headers': {
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
+          },
+          'url': '/kesehatan_bulanan_berat/detail/' + rows[0]['karyawan_id']
+        },
         columns: [{
             data: 'DT_RowIndex',
             orderable: false,
@@ -478,11 +502,18 @@
       $('#tabel_detail_penyakit').DataTable({
         processing: true,
         destroy: true,
-        serverSide: false,
+        serverSide: true,
         language: {
           processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
         },
-        ajax: '/kesehatan/penyakit/' + rows[0]['karyawan_id'],
+        ajax: {
+          'type': 'POST',
+          'headers': {
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
+          },
+          'url': '/kesehatan/penyakit/' + rows[0]['karyawan_id']
+        },
+
         columns: [{
             data: 'DT_RowIndex',
             orderable: false,

@@ -76,11 +76,17 @@
   $(function() {
     var tabel = $('#tabel').DataTable({
       processing: true,
-      serverSide: false,
+      serverSide: true,
       language: {
         processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
       },
-      ajax: '/karyawan_masuk/data',
+      ajax: {
+        'url': '/karyawan_masuk/data',
+        'type': 'POST',
+        'headers': {
+          'X-CSRF-TOKEN': '{{csrf_token()}}'
+        }
+      },
       columns: [{
           data: 'DT_RowIndex',
           orderable: false,

@@ -7,6 +7,11 @@
     <div class="container-fluid">
     </div>
 </section>
+<style>
+    th {
+        text-align: center;
+    }
+</style>
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
@@ -34,7 +39,7 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{url('assets/image/user')}}/nora.png" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="{{url('assets/image/user')}}/index.png" alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center" id="nama">-</h3>
                         <p class="text-muted text-center" id="divisi">-</p>
@@ -174,8 +179,15 @@
         var karyawan_id = 0;
         var tabel_berat = $('#tabel_berat').DataTable({
             processing: true,
-            serverSide: false,
-            ajax: '/kesehatan_bulanan_berat/detail/' + karyawan_id,
+            serverSide: true,
+            ajax: {
+                'dataType': 'json',
+                'type': 'POST',
+                'headers': {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                },
+                'url': '/kesehatan_bulanan_berat/detail/' + karyawan_id,
+            },
             language: {
                 processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
             },
@@ -210,14 +222,20 @@
                 },
             ]
         });
-
         var vaksin_karyawan = $('#tabel_detail').DataTable({
             processing: true,
             serverSide: false,
             language: {
                 processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
             },
-            ajax: '/kesehatan/vaksin/' + karyawan_id,
+            ajax: {
+                'dataType': 'json',
+                'type': 'POST',
+                'headers': {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                },
+                'url': '/kesehatan/vaksin/' + karyawan_id,
+            },
             columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
@@ -234,14 +252,22 @@
                 },
             ],
         });
-
         $('#tabel_detail_penyakit').DataTable({
             processing: true,
             serverSide: false,
+
+            ajax: {
+                'dataType': 'json',
+                'type': 'POST',
+                'headers': {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                },
+                'url': '/kesehatan/penyakit/' + karyawan_id,
+            },
             language: {
                 processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
             },
-            ajax: '/kesehatan/penyakit/' + karyawan_id,
+
             columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
@@ -261,31 +287,41 @@
                 },
             ],
         });
-
         $('#tabel_obat').DataTable({
             processing: true,
             serverSide: false,
             language: {
                 processing: '<i class="fa fa-spinner fa-spin"></i> Tunggu Sebentar'
             },
-            ajax: '/obat/data/detail/' + karyawan_id,
+            ajax: {
+                'dataType': 'json',
+                'type': 'POST',
+                'headers': {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                },
+                'url': '/obat/data/detail/' + karyawan_id,
+            },
             columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
                     searchable: false
-                },
-                {
-                    data: 'tgl_cek'
-                },
-                {
-                    data: 'obat.nama'
-                },
-                {
-                    data: 'analisa'
-                },
-                {
-                    data: 'jumlah'
-                },
+                }, {
+                    data: 'tgl_cek',
+                    orderable: false,
+
+                }, {
+                    data: 'nama_obat',
+
+                }, {
+                    data: 'diag',
+                    orderable: false,
+
+                }, {
+                    data: 'jumlah_obat',
+                    orderable: false,
+                    searchable: false
+                }
+
             ],
         });
     });

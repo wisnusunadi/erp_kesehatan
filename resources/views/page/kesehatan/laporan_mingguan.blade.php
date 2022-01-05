@@ -197,7 +197,6 @@
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js "></script>
 <script src="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap4.min.css "></script>
 
-
 <script>
   $(document).ready(function() {
     $('input[type=radio][name=filter]').on('change', function() {
