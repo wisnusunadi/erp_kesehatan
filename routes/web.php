@@ -155,6 +155,11 @@ Route::post('/obat/stok/aksi_tambah', 'KesehatanController@obat_stok_aksi_tambah
 Route::get('/obat/stok/data/{id}', 'KesehatanController@obat_stok_data');
 Route::put('/obat/aksi_ubah', 'KesehatanController@obat_aksi_ubah');
 
+//Vaksin
+Route::post('/vaksin/aksi_tambah', 'KesehatanController@kesehatan_vaksin_aksi_tambah');
+//Penyakit
+Route::post('/riwayat_penyakit/aksi_tambah', 'KesehatanController@kesehatan_riwayat_penyakit_aksi_tambah');
+
 //Laporan
 Route::get('/laporan_harian', 'KesehatanController@laporan_harian');
 Route::get('/laporan_mingguan', 'KesehatanController@laporan_mingguan');

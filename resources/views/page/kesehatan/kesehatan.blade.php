@@ -146,7 +146,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="col-lg-12">
-                <form method="post" action="/kesehatan/vaksin/aksi_tambah">
+                <form method="post" action="/vaksin/aksi_tambah">
                   {{ csrf_field() }}
                   <div class="card">
                     <div class="card-header bg-success">
@@ -273,7 +273,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="col-lg-12">
-                <form method="post" action="/kesehatan/penyakit/aksi_tambah">
+                <form method="post" action="/riwayat_penyakit/aksi_tambah">
                   {{ csrf_field() }}
                   <div class="card">
                     <div class="card-header bg-success">

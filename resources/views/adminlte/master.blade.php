@@ -27,9 +27,10 @@
 
     {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('master_css')
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400, 300">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="{{ asset('assets/css/font.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/export_font.css') }}">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400, 300">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))

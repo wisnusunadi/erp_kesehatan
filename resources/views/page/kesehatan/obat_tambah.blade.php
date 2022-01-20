@@ -28,7 +28,7 @@
             </div>
             @endif
             <div class="col-lg-12">
-                <form action="/obat/aksi_tambah" method="post" enctype="multipart/form-data">
+                <form action="/obat/aksi_tambah" method="post">
                     {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header bg-success">
