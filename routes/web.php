@@ -601,7 +601,7 @@ Route::group(['prefix' => '/kedatangan', 'middleware' => 'auth'], function () {
     Route::get('/analisa/show', 'QCController@kedatangan_analisa_show')->name('kedatangan.analisa.show');
 });
 
-//OUTGOING 
+//OUTGOING
 // Route::group(['prefix' => 'pemeriksaan', 'middleware' => 'auth'], function(){
 //     Route::get('')
 // })

@@ -1115,6 +1115,7 @@ class KesehatanController extends Controller
     {
         return view('page.kesehatan.karyawan_sakit');
     }
+
     public function karyawan_sakit_cetak($id)
     {
         $karyawan_sakit = Karyawan_sakit::find($id);
@@ -1124,6 +1125,7 @@ class KesehatanController extends Controller
         $pdf = PDF::loadView('page.kesehatan.surat_sakit', ['karyawan_sakit' => $karyawan_sakit, 'umur' => $umur, 'carbon' => $carbon])->setPaper('A5', 'Landscape');
         return $pdf->stream('');
     }
+
     public function karyawan_sakit_tambah()
     {
         $karyawan = Karyawan::orderBy('nama', 'ASC')
@@ -1316,15 +1318,15 @@ class KesehatanController extends Controller
             ->rawColumns(['button', 'detail_button', 'a'])
             ->make(true);
     }
-    public function obat_data_select($where)
+    public function obat_data_select(Request $request, $where)
     {
         $x = explode(',', $where);
-        $data = Obat::select()->whereNotIN('id', $x)->get();
+        $data = Obat::where('nama', 'LIKE', '%' . $request->input('term', '') . '%')->whereNotIN('id', $x)->get();
         echo json_encode($data);
     }
-    public function obat_data_id($id)
+    public function obat_data_id(Request $request, $id)
     {
-        $data = Obat::where('id', $id)->get();
+        $data = Obat::where('nama', 'LIKE', '%' . $request->input('term', '') . '%')->where('id', $id)->get();
         echo json_encode($data);
     }
     public function obat_detail_data($id)
