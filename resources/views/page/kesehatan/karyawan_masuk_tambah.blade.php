@@ -323,7 +323,7 @@
             var data = `     <tr>
                                                                 <td>1</td>
                                                                 <td>
-                                                                    <select class="form-control  obat_data " id="0" name="obat[]">                                     
+                                                                    <select class="form-control  obat_data " id="0" name="obat[]">
                                                                     </select>
                                                                 </td>
                                                                 <td>
@@ -371,7 +371,7 @@
                                                                     <small id="stok0" class="stok text-muted">Stok : - </small>
                                                                 </td>
                                                                 <td style="text-align: right;">
-                                                                <button type="button" class="btn btn-danger karyawan-img-small" style="border-radius:50%;" id="closetable"><i class="fas fa-times-circle"></i></button> 
+                                                                <button type="button" class="btn btn-danger karyawan-img-small" style="border-radius:50%;" id="closetable"><i class="fas fa-times-circle"></i></button>
                                                                 </td>
                             </tr>`;
             $('#obat tr:last').after(data);
@@ -401,7 +401,7 @@
                     url: '/obat/data/select/' + where,
                     data: function(params) {
                         return {
-                            searchTerm: params.term
+                            term: params.term
                         }
                     },
                     processResults: function(data) {
