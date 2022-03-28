@@ -34,7 +34,7 @@
             </div>
             @endif
             <div class="col-lg-12">
-                <form action="/karyawan_sakit/aksi_tambah" method="post">
+                <form action="/karyawan_sakit/aksi_tambah" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="card">
                         <div class="card-header bg-success">
