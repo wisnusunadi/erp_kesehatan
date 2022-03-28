@@ -1135,6 +1135,7 @@ class KesehatanController extends Controller
             ->get();
         return view('page.kesehatan.karyawan_sakit_tambah', ['karyawan' => $karyawan, 'pengecek' => $pengecek, 'obat' => $obat]);
     }
+
     // public function obat_data()
     // {
     //     $data = Obat::all();
@@ -1193,7 +1194,8 @@ class KesehatanController extends Controller
                 }
             }
         }
-        if ($karyawan_sakit && $obat && $detail_obat) {
+
+        if ($karyawan_sakit || $obat && $detail_obat) {
             return redirect()->back()->with('success', 'Berhasil menambahkan data');
         } else {
             return redirect()->back()->with('error', 'Gagal menambahkan data');
